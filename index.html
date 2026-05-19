@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RideRelief — Instant Help. Anywhere. Anytime.</title>
+
+  <!-- ✅ Google SEO Meta Tags -->
+   <meta name="google-site-verification" content="RMfp4y4xa2CGg0eJ47cioflA8lwyuGCJkTy3rAyt2Nk" />
+  <meta name="description" content="RideRelief is a smart vehicle assistance platform providing fast access to Acting Drivers, Rental Vehicles, Mechanics, Emergency Support, and Offline SOS Assistance across India." />
+  <meta name="keywords" content="RideRelief, vehicle assistance, acting driver, rental vehicle, mechanic on demand, emergency SOS, roadside help, India" />
+  <meta name="author" content="RideRelief" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://riderelief.in/" />
+
+  <!-- Open Graph (social sharing) -->
+  <meta property="og:title" content="RideRelief — Instant Help. Anywhere. Anytime." />
+  <meta property="og:description" content="Smart vehicle assistance — Acting Drivers, Rentals, Mechanics, Emergency SOS — all in one app." />
+  <meta property="og:image" content="https://riderelief.in/og-image.jpg" />
+  <meta property="og:url" content="https://riderelief.in/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RideRelief — Instant Help. Anywhere. Anytime." />
+  <meta name="twitter:description" content="Smart vehicle assistance platform — get help fast, anywhere in India." />
+  <meta name="twitter:image" content="https://riderelief.in/og-image.jpg" />
+
+  <!-- PWA / Mobile -->
+  <meta name="theme-color" content="#0b1120" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="RideRelief" />
+
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RideRelief",
+    "url": "https://riderelief.in",
+    "logo": "https://riderelief.in/logo.png",
+    "description": "Smart vehicle assistance platform providing Acting Drivers, Rentals, Mechanics, Emergency SOS.",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+91-9000000000",
+      "contactType": "customer service",
+      "availableLanguage": ["English", "Tamil", "Hindi"]
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Razorpay -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060b18;
+      --bg2: #0d1528;
+      --bg3: #111d35;
+      --accent: #f97316;
+      --accent2: #fbbf24;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: rgba(255,255,255,0.08);
+      --card: rgba(255,255,255,0.04);
+      --radius: 16px;
+      --font-head: 'Syne', sans-serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw;
+      height: 68px;
+      background: rgba(6,11,24,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--font-head);
+      font-size: 1.4rem; font-weight: 800;
+      background: linear-gradient(90deg, #f97316, #fbbf24);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; gap: 1rem; align-items: center; }
+    .btn-outline {
+      padding: 8px 20px; border-radius: 100px;
+      border: 1px solid var(--border);
+      background: transparent; color: var(--text);
+      font-family: var(--font-body); font-size: 0.88rem; cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-outline:hover { background: var(--card); border-color: rgba(255,255,255,.2); }
+    .btn-primary {
+      padding: 9px 22px; border-radius: 100px;
+      background: var(--accent); color: #fff; border: none;
+      font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+      cursor: pointer; transition: transform .15s, opacity .15s;
+    }
+    .btn-primary:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 100px 5vw 60px;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(ellipse, rgba(249,115,22,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(249,115,22,.12);
+      border: 1px solid rgba(249,115,22,.3);
+      padding: 6px 16px; border-radius: 100px;
+      font-size: 0.8rem; color: #fb923c; margin-bottom: 2rem;
+      animation: fadeUp .6s ease both;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: #f97316; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.3} }
+    h1 {
+      font-family: var(--font-head);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
+      animation: fadeUp .7s .1s ease both;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      max-width: 560px; margin: 1.5rem auto 0;
+      color: var(--muted); font-size: 1.05rem; line-height: 1.7;
+      animation: fadeUp .7s .2s ease both;
+    }
+    .hero-cta {
+      display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .hero-cta .btn-big {
+      padding: 14px 34px; border-radius: 100px; font-size: 1rem; font-weight: 500;
+      cursor: pointer; transition: all .2s; border: none; font-family: var(--font-body);
+    }
+    .hero-cta .btn-big.orange { background: var(--accent); color: #fff; }
+    .hero-cta .btn-big.orange:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(249,115,22,.4); }
+    .hero-cta .btn-big.ghost { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .hero-cta .btn-big.ghost:hover { background: rgba(255,255,255,.08); }
+
+    .hero-stats {
+      display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp .7s .4s ease both;
+    }
+    .hero-stat strong { font-family: var(--font-head); font-size: 2rem; font-weight: 700; display: block; }
+    .hero-stat span { font-size: 0.85rem; color: var(--muted); }
+
+    @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+
+    /* ── SERVICES ── */
+    section { padding: 100px 5vw; }
+    .section-label {
+      font-size: 0.78rem; letter-spacing: .15em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .section-sub { color: var(--muted); max-width: 520px; line-height: 1.7; margin-bottom: 3rem; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden;
+    }
+    .service-card {
+      background: var(--bg);
+      padding: 2rem 1.5rem;
+      transition: background .25s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--bg3); }
+    .service-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      background: rgba(249,115,22,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 {
+      font-family: var(--font-head); font-size: 1.05rem; font-weight: 600;
+      margin-bottom: .5rem;
+    }
+    .service-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ── */
+    #how { background: var(--bg2); }
+    .steps { display: flex; flex-direction: column; gap: 0; max-width: 680px; }
+    .step {
+      display: flex; gap: 2rem; padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .step:last-child { border-bottom: none; }
+    .step-num {
+      width: 48px; height: 48px; flex-shrink: 0; border-radius: 50%;
+      background: var(--bg3); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-head); font-weight: 700; font-size: 1rem; color: var(--accent);
+    }
+    .step h4 { font-family: var(--font-head); font-size: 1.05rem; margin-bottom: .4rem; }
+    .step p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem;
+    }
+    .pricing-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      transition: border-color .2s, transform .2s;
+    }
+    .pricing-card:hover { border-color: rgba(249,115,22,.4); transform: translateY(-4px); }
+    .pricing-card.featured { border-color: var(--accent); background: rgba(249,115,22,.06); }
+    .pricing-badge {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 1rem;
+    }
+    .pricing-name { font-family: var(--font-head); font-size: 1.1rem; font-weight: 600; margin-bottom: .5rem; }
+    .pricing-amount { font-family: var(--font-head); font-size: 2.6rem; font-weight: 800; margin-bottom: .25rem; }
+    .pricing-amount sup { font-size: 1.2rem; vertical-align: super; }
+    .pricing-period { font-size: 0.82rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .pricing-features { list-style: none; margin-bottom: 2rem; }
+    .pricing-features li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: var(--muted); padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .pricing-features li:last-child { border: none; }
+    .pricing-features li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+    .btn-pay {
+      width: 100%; padding: 12px; border-radius: 100px;
+      font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
+      cursor: pointer; border: none; transition: all .2s;
+    }
+    .btn-pay.outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-pay.outline:hover { background: var(--card); }
+    .btn-pay.filled { background: var(--accent); color: #fff; }
+    .btn-pay.filled:hover { opacity: .9; transform: translateY(-1px); }
+
+    /* ── AUTH MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,.75); backdrop-filter: blur(8px);
+      align-items: center; justify-content: center; padding: 1rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 24px; padding: 2.5rem; width: 100%; max-width: 420px;
+      position: relative; animation: scaleIn .25s ease;
+    }
+    @keyframes scaleIn { from{opacity:0;transform:scale(.95)} to{opacity:1;transform:scale(1)} }
+    .modal-close {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: var(--card); border: none; color: var(--muted);
+      width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem;
+    }
+    .modal h2 {
+      font-family: var(--font-head); font-size: 1.6rem; font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .modal p { color: var(--muted); font-size: 0.88rem; margin-bottom: 2rem; }
+    .google-btn {
+      width: 100%; padding: 13px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      background: #fff; color: #1a1a1a; font-size: 0.95rem; font-weight: 500;
+      border: none; cursor: pointer; font-family: var(--font-body);
+      transition: opacity .2s;
+    }
+    .google-btn:hover { opacity: .9; }
+    .google-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .divider {
+      display: flex; align-items: center; gap: 1rem; margin: 1.5rem 0;
+      color: var(--muted); font-size: 0.82rem;
+    }
+    .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+    .form-group input {
+      width: 100%; padding: 12px 14px; border-radius: 10px;
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-family: var(--font-body); font-size: 0.92rem;
+      outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus { border-color: var(--accent); }
+    .form-group input::placeholder { color: var(--muted); }
+    .modal-submit {
+      width: 100%; padding: 13px; border-radius: 12px; margin-top: .5rem;
+      background: var(--accent); color: #fff; font-family: var(--font-body);
+      font-size: 0.95rem; font-weight: 500; border: none; cursor: pointer;
+      transition: opacity .2s;
+    }
+    .modal-submit:hover { opacity: .9; }
+    .modal-footer { text-align: center; font-size: 0.8rem; color: var(--muted); margin-top: 1.25rem; }
+    .modal-footer a { color: var(--accent); text-decoration: none; }
+
+    /* toast */
+    #toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 999;
+      background: #111; border: 1px solid var(--border);
+      padding: 12px 20px; border-radius: 10px; font-size: 0.88rem;
+      transform: translateY(80px); opacity: 0; transition: all .3s;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 3rem;
+    }
+    .testi-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.75rem;
+    }
+    .testi-stars { color: var(--accent2); margin-bottom: 1rem; letter-spacing: 2px; }
+    .testi-text { font-size: 0.92rem; line-height: 1.7; color: var(--muted); margin-bottom: 1.25rem; }
+    .testi-author { display: flex; align-items: center; gap: 10px; }
+    .testi-avatar {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; color: #fff; flex-shrink: 0;
+    }
+    .testi-name { font-size: 0.88rem; font-weight: 500; }
+    .testi-role { font-size: 0.78rem; color: var(--muted); }
+
+    /* ── FAQ ── */
+    #faq { background: var(--bg2); }
+    .faq-list { max-width: 680px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; text-align: left; background: none; border: none;
+      color: var(--text); font-family: var(--font-body); font-size: 0.95rem; font-weight: 500;
+      padding: 1.25rem 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    }
+    .faq-q span { transition: transform .25s; }
+    .faq-q.open span { transform: rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden; transition: max-height .3s ease;
+      color: var(--muted); font-size: 0.88rem; line-height: 1.7;
+    }
+    .faq-a.open { max-height: 200px; padding-bottom: 1rem; }
+
+    /* ── CTA BANNER ── */
+    #cta-banner {
+      background: linear-gradient(135deg, #1a0a00, #2a1000);
+      border-top: 1px solid rgba(249,115,22,.2);
+      text-align: center;
+    }
+    #cta-banner h2 {
+      font-family: var(--font-head); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 800; margin-bottom: 1rem;
+    }
+    #cta-banner p { color: var(--muted); margin-bottom: 2.5rem; font-size: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg); border-top: 1px solid var(--border);
+      padding: 3rem 5vw;
+      display: grid; grid-template-columns: 2fr repeat(3, 1fr);
+      gap: 3rem;
+    }
+    .footer-brand a { display: block; margin-bottom: .75rem; }
+    .footer-brand p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; max-width: 240px; }
+    .footer-col h5 {
+      font-family: var(--font-head); font-size: 0.85rem; letter-spacing: .06em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .footer-col a {
+      display: block; color: var(--muted); text-decoration: none;
+      font-size: 0.88rem; margin-bottom: .6rem; transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom {
+      border-top: 1px solid var(--border); padding: 1.5rem 5vw;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      font-size: 0.82rem; color: var(--muted);
+    }
+    .footer-bottom a { color: var(--muted); text-decoration: none; margin-left: 1.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      footer { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      footer { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="#" class="nav-logo">RideRelief</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-actions">
+    <button class="btn-outline" onclick="openModal('login')">Sign in</button>
+    <button class="btn-primary" onclick="openModal('signup')">Get started</button>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge"><span></span> Now available in Tamil Nadu</div>
+  <h1>Instant Help.<br/><em>Anywhere.</em> Anytime.</h1>
+  <p class="hero-sub">
+    RideRelief connects you to Acting Drivers, Rental Vehicles, Mechanics, and Emergency SOS — all from one tap.
+  </p>
+  <div class="hero-cta">
+    <button class="btn-big orange" onclick="openModal('signup')">Book a service now</button>
+    <a href="#how" class="btn-big ghost" style="text-decoration:none;display:inline-flex;align-items:center;">How it works →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat"><strong>12,000+</strong><span>Trips completed</span></div>
+    <div class="hero-stat"><strong>4.8 ★</strong><span>Average rating</span></div>
+    <div class="hero-stat"><strong>&lt; 8 min</strong><span>Avg. response time</span></div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services">
+  <div class="section-label">What we offer</div>
+  <h2 class="section-title">Everything your vehicle<br/>journey needs</h2>
+  <p class="section-sub">Five core services designed for Chennai roads and beyond — real-time, reliable, and just a tap away.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🧑‍✈️</div>
+      <h3>Acting Driver</h3>
+      <p>Drunk at a party? Tired after a long trip? Get a trained driver to take the wheel — you stay safe.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🚗</div>
+      <h3>Rental Vehicle</h3>
+      <p>Hourly and daily rentals — from compact hatchbacks to SUVs. No documentation hassle.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔧</div>
+      <h3>Mechanic on Demand</h3>
+      <p>Flat tyre? Dead battery? Our certified mechanics reach you in under 15 minutes.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🆘</div>
+      <h3>Emergency Support</h3>
+      <p>Accident on the highway? We coordinate towing, first response, and hospital contact.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📡</div>
+      <h3>Offline SOS</h3>
+      <p>No internet? No problem. Trigger an SOS via SMS or saved contacts — we still reach you.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📍</div>
+      <h3>Live Tracking</h3>
+      <p>Track your driver or mechanic in real-time. Share your live location with family.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section id="how">
+  <div class="section-label">Process</div>
+  <h2 class="section-title">Three steps to<br/>instant relief</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div>
+        <h4>Sign in & book</h4>
+        <p>Log in with your Google account in one tap. Choose the service you need and share your location — we do the rest.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div>
+        <h4>Match & confirm</h4>
+        <p>We match you with the nearest available driver, mechanic, or support crew. You get live ETA and driver profile.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div>
+        <h4>Pay securely</h4>
+        <p>Pay via UPI, card, or net banking through Razorpay — fully encrypted, instant confirmation, no hidden fees.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PRICING ══ -->
+<section id="pricing">
+  <div class="section-label">Plans</div>
+  <h2 class="section-title">Simple, honest pricing</h2>
+  <p class="section-sub">Pay per use or subscribe for bigger savings. No lock-ins.</p>
+
+  <div class="pricing-grid">
+    <!-- Basic -->
+    <div class="pricing-card">
+      <div class="pricing-name">Pay-as-you-go</div>
+      <div class="pricing-amount"><sup>₹</sup>0</div>
+      <div class="pricing-period">No monthly fee</div>
+      <ul class="pricing-features">
+        <li>Acting Driver (₹199/trip)</li>
+        <li>Mechanic on Demand</li>
+        <li>Offline SOS (free)</li>
+        <li>Live tracking</li>
+      </ul>
+      <button class="btn-pay outline" onclick="openModal('signup')">Get started free</button>
+    </div>
+
+    <!-- Pro -->
+    <div class="pricing-card featured">
+      <div class="pricing-badge">Most popular</div>
+      <div class="pricing-name">RideRelief Pro</div>
+      <div class="pricing-amount"><sup>₹</sup>299</div>
+      <div class="pricing-period">per month · billed monthly</div>
+      <ul class="pricing-features">
+        <li>5 Acting Driver trips/mo</li>
+        <li>Priority mechanic dispatch</li>
+        <li>2 free rentals (up to 4 hrs)</li>
+        <li>Emergency SOS (24/7)</li>
+        <li>Family tracking (3 people)</li>
+      </ul>
+      <button class="btn-pay filled" onclick="payRazorpay(299, 'RideRelief Pro – Monthly')">Subscribe ₹299/mo</button>
+    </div>
+
+    <!-- Annual -->
+    <div class="pricing-card">
+      <div class="pricing-name">RideRelief Annual</div>
+      <div class="pricing-amount"><sup>₹</sup>2499</div>
+      <div class="pricing-period">per year · saves ₹1,089</div>
+      <ul class="pricing-features">
+        <li>Unlimited Acting Driver trips</li>
+        <li>Priority mechanic dispatch</li>
+        <li>Unlimited rentals (daily cap)</li>
+        <li>Emergency + Offline SOS</li>
+        <li>Family tracking (10 people)</li>
+        <li>Dedicated support agent</li>
+      </ul>
+      <button class="btn-pay outline" onclick="payRazorpay(2499, 'RideRelief Annual Plan')">Subscribe ₹2,499/yr</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIALS ══ -->
+<section id="reviews" style="background:var(--bg2)">
+  <div class="section-label">Reviews</div>
+  <h2 class="section-title">Trusted by real riders</h2>
+  <div class="testimonials-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Mechanic arrived in 11 minutes on the ECR highway. Flat tyre fixed, back on the road. This app is incredible."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AK</div>
+        <div><div class="testi-name">Arun Kumar</div><div class="testi-role">Regular user · Chennai</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Used the Acting Driver service after a late-night party. So easy — driver came in 6 minutes, very professional."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">PR</div>
+        <div><div class="testi-name">Priya Raman</div><div class="testi-role">Pro subscriber · Coimbatore</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The SOS feature saved my trip when I had no data signal near Ooty. Just brilliant engineering."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">VN</div>
+        <div><div class="testi-name">Vijay Nair</div><div class="testi-role">Annual plan · Madurai</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FAQ ══ -->
+<section id="faq">
+  <div class="section-label">FAQ</div>
+  <h2 class="section-title">Common questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Is RideRelief available in my city? <span>+</span></button>
+      <div class="faq-a">Currently serving Chennai, Coimbatore, Madurai, and Salem. We're expanding to Bangalore and Hyderabad in Q3 2025.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">How does the Offline SOS work? <span>+</span></button>
+      <div class="faq-a">When you lose data connectivity, RideRelief sends an SMS with your last known GPS coordinates to our dispatch center and your registered emergency contacts. No internet required.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Are the drivers and mechanics verified? <span>+</span></button>
+      <div class="faq-a">Yes. Every driver undergoes a police background check, defensive driving test, and medical checkup. Mechanics are certified and hold trade licenses.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">What payment methods are accepted? <span>+</span></button>
+      <div class="faq-a">We accept UPI (PhonePe, GPay, Paytm), all debit/credit cards, and net banking — powered by Razorpay's secure checkout.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Can I cancel a subscription anytime? <span>+</span></button>
+      <div class="faq-a">Yes, subscriptions can be cancelled from your profile page at any time. You'll retain Pro benefits until the end of the billing cycle.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA BANNER ══ -->
+<section id="cta-banner">
+  <h2>Ready for your first<br/><em style="color:var(--accent);font-style:normal;">worry-free ride?</em></h2>
+  <p>Join 12,000+ riders across Tamil Nadu. First service is on us.</p>
+  <button class="btn-big orange" style="padding:16px 44px;font-size:1.05rem;border-radius:100px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-family:var(--font-body);font-weight:500;" onclick="openModal('signup')">
+    Sign up — it's free
+  </button>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo">RideRelief</a>
+    <p>Smart vehicle assistance — anywhere, anytime. Built for Indian roads.</p>
+  </div>
+  <div class="footer-col">
+    <h5>Services</h5>
+    <a href="#">Acting Driver</a>
+    <a href="#">Rental Vehicle</a>
+    <a href="#">Mechanic</a>
+    <a href="#">Emergency SOS</a>
+    <a href="#">Offline SOS</a>
+  </div>
+  <div class="footer-col">
+    <h5>Company</h5>
+    <a href="#">About us</a>
+    <a href="#">Careers</a>
+    <a href="#">Press</a>
+    <a href="#">Blog</a>
+    <a href="#">Contact</a>
+  </div>
+  <div class="footer-col">
+    <h5>Legal</h5>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Refund Policy</a>
+    <a href="#">Cookie Policy</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 RideRelief Technologies Pvt. Ltd. All rights reserved.</span>
+  <div>
+    <a href="#">Twitter</a>
+    <a href="#">Instagram</a>
+    <a href="#">LinkedIn</a>
+  </div>
+</div>
+
+<!-- ══ AUTH MODAL ══ -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2 id="modal-title">Create account</h2>
+    <p id="modal-desc">Join thousands of riders across Tamil Nadu.</p>
+
+    <!-- Google OAuth Button -->
+    <button class="google-btn" onclick="googleOAuth()">
+      <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.36-8.16 2.36-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+      </svg>
+      Continue with Google
+    </button>
+
+    <div class="divider">or continue with email</div>
+
+    <div class="form-group">
+      <label>Full name</label>
+      <input type="text" id="auth-name" placeholder="Affan Khan" />
+    </div>
+    <div class="form-group">
+      <label>Email address</label>
+      <input type="email" id="auth-email" placeholder="you@example.com" />
+    </div>
+    <div class="form-group" id="pass-group">
+      <label>Password</label>
+      <input type="password" id="auth-pass" placeholder="••••••••" />
+    </div>
+    <button class="modal-submit" onclick="submitAuth()">Create account</button>
+    <div class="modal-footer" id="modal-switch">
+      Already have an account? <a href="#" onclick="openModal('login');return false;">Sign in</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOAST ══ -->
+<div id="toast"></div>
+
+<script>
+  // ── Modal ──
+  let modalMode = 'signup';
+
+  function openModal(mode) {
+    modalMode = mode;
+    document.getElementById('auth-modal').classList.add('open');
+    if (mode === 'login') {
+      document.getElementById('modal-title').textContent = 'Welcome back';
+      document.getElementById('modal-desc').textContent = 'Sign in to your RideRelief account.';
+      document.getElementById('auth-name').closest('.form-group').style.display = 'none';
+      document.getElementById('modal-switch').innerHTML = 'New here? <a href="#" onclick="openModal(\'signup\');return false;">Create account</a>';
+      document.querySelector('.modal-submit').textContent = 'Sign in';
+    } else {
+      document.getElementById('modal-title').textContent = 'Create account';
+      document.getElementById('modal-desc').textContent = 'Join thousands of riders across Tamil Nadu.';
+      document.getElementById('auth-name').closest('.form-group').style.display = '';
+      document.getElementById('modal-switch').innerHTML = 'Already have an account? <a href="#" onclick="openModal(\'login\');return false;">Sign in</a>';
+      document.querySelector('.modal-submit').textContent = 'Create account';
+    }
+  }
+
+  function closeModal() {
+    document.getElementById('auth-modal').classList.remove('open');
+  }
+
+  document.getElementById('auth-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  // ── Google OAuth (Demo) ──
+function googleOAuth() {
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=327602656942-fm428lq87s0jup28ggcermus0v6ds5u7.apps.googleusercontent.com&redirect_uri=https://riderelief-promo.vercel.app/auth/callback&response_type=token&scope=email%20profile`;
+}
+
+  function submitAuth() {
+    const email = document.getElementById('auth-email').value;
+    if (!email) { toast('⚠️ Please enter your email'); return; }
+    toast(modalMode === 'login' ? '✅ Signed in successfully!' : '✅ Account created! Welcome to RideRelief.');
+    closeModal();
+  }
+
+  // ── Razorpay Test Payment ──
+  function payRazorpay(amountINR, description) {
+    const options = {
+      key: 'rzp_test_SrHAaBlr4TovHP', // 🔑 Replace with your Razorpay Test Key ID
+      amount: amountINR * 100,         // in paise
+      currency: 'INR',
+      name: 'RideRelief',
+      description: description,
+      image: 'https://riderelief.in/logo.png',
+      prefill: {
+        name: 'Affan',
+        email: 'user@riderelief.in',
+        contact: '9000000000'
+      },
+      theme: { color: '#f97316' },
+      handler: function(response) {
+        toast('✅ Payment successful! ID: ' + response.razorpay_payment_id);
+      },
+      modal: {
+        ondismiss: function() {
+          toast('Payment cancelled.');
+        }
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.on('payment.failed', function(resp) {
+      toast('❌ Payment failed: ' + resp.error.description);
+    });
+    rzp.open();
+  }
+
+  // ── FAQ toggle ──
+  function toggleFaq(btn) {
+    btn.classList.toggle('open');
+    const ans = btn.nextElementSibling;
+    ans.classList.toggle('open');
+  }
+
+  // ── Toast helper ──
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 3000);
+  }
+</script>
+</body>
+</html>
