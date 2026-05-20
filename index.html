@@ -739,6 +739,21 @@
 <div id="toast"></div>
 
 <script>
+  // ── Handle OAuth callback token ──
+window.addEventListener('load', function() {
+  const hash = window.location.hash;
+  if (hash.includes('access_token')) {
+    const token = new URLSearchParams(hash.substring(1)).get('access_token');
+    fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+      headers: { Authorization: 'Bearer ' + token }
+    })
+    .then(r => r.json())
+    .then(user => {
+      toast('✅ Signed in as ' + user.name);
+      history.replaceState(null, '', '/'); // clean URL
+    });
+  }
+});
   // ── Modal ──
   let modalMode = 'signup';
 
@@ -767,10 +782,12 @@
   document.getElementById('auth-modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
-
+s
   // ── Google OAuth (Demo) ──
 function googleOAuth() {
-  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=327602656942-fm428lq87s0jup28ggcermus0v6ds5u7.apps.googleusercontent.com&redirect_uri=https://riderelief.vercel.app/auth/callback&response_type=token&scope=email%20profile`;
+  const clientId = '327602656942-fm428lq87s0jup28ggcermus0v6ds5u7.apps.googleusercontent.com';
+  const redirectUri = window.location.origin + '/';
+  window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=email%20profile`;
 }
 
   function submitAuth() {
