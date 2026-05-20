@@ -61,9 +61,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
   <!-- Razorpay -->
-   name: 'RideRelief',
-description: description,
-image: 'https://riderelief.vercel.app/logo.png',
+
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
   <style>
@@ -808,6 +806,7 @@ function googleOAuth() {
   // ── Razorpay Test Payment ──
   function payRazorpay(amountINR, description) {
     const options = {
+      name: 'RideRelief', description: description, image: 'https://riderelief.vercel.app/logo.png',
       key: 'rzp_test_SrHAaBlr4TovHP', // 🔑 Replace with your Razorpay Test Key ID
       amount: amountINR * 100,         // in paise
       currency: 'INR',
